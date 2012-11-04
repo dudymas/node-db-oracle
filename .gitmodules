@@ -1,3 +1,6 @@
 [submodule "lib/node-db"]
 	path = lib/node-db
 	url = git://github.com/mariano/node-db.git
+[submodule "deps/node-db"]
+	path = deps/node-db
+	url = git://github.com/dudymas/node-db.git
