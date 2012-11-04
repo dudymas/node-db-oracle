@@ -8,7 +8,7 @@
   ],
   "targets": [
     {
-      "target_name": "node-db-oracle",
+      "target_name": "oracle_bindings",
       "sources": [ 'src/*.cc' ],
       'include_dirs': [
         'deps/node-db/deps/pthreads-win32',
