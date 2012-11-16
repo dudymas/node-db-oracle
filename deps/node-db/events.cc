@@ -29,7 +29,21 @@ bool node_db::EventEmitter::Emit(const char* event, int argc, v8::Handle<v8::Val
     }
 
 #if NODE_VERSION_AT_LEAST(0, 5, 0)
-    node::MakeCallback(this->handle_, "emit", nArgc, nArgv);
+    v8::Local<v8::Value> emit_v = this->handle_->Get(v8::String::New("emit"));
+    if (emit_v->IsFunction()) {
+      node::MakeCallback(this->handle_, "emit", nArgc, nArgv);
+    }
+    else {
+        //try using 'on'
+        v8::Local<v8::Value> on_v = this->handle_->Get(v8::String::New("on"));
+        if (on_v->IsFunction()){
+            node::MakeCallback(this->handle_, "on", nArgc, nArgv);
+        }
+        else{
+            return false;
+        }
+    }
+
 #else
     v8::Local<v8::Value> emit_v = this->handle_->Get(syEmit);
     if (!emit_v->IsFunction()) {
